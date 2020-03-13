@@ -1,0 +1,92 @@
+import java.util.*;
+class Info 
+{
+    String daily,capacity;
+    int val;
+    
+    public Info(String daily,String capacity,int val)
+    {
+        this.daily=daily;
+        this.capacity=capacity;
+        this.val=val;
+    }
+}
+
+public class Main 
+{
+    public static void main(String args[])
+    {
+        Scanner scanner=new Scanner(System.in);
+        int noOfDays=scanner.nextInt();
+        int noOfClusters=scanner.nextInt();
+        scanner.nextLine();
+        HashMap<String,Info> hm1=new HashMap<String,Info>();
+        
+        for(int i=1;i<=noOfClusters;i++)
+        {
+            String s=scanner.nextLine();
+            String words[]=s.split("\\s+");
+            String s2=words[0];
+            hm1.put(s2,new Info(words[1],words[2],1));
+        }
+        
+        HashMap<String,String> hm2=new HashMap<String,String>();
+        int c=1;
+        int noOfLinks=scanner.nextInt();
+        scanner.nextLine();
+        
+        for(int i=1;i<=noOfLinks;i++)
+        {
+            String s=scanner.nextLine();
+            String words[]=s.split("_");
+            if(words[0].equals("F"))
+            {
+                String n=words[0]+c;
+                c++;
+                hm2.put(n,words[1]);
+            }
+            else{
+                hm2.put(words[0],words[1]);
+            }
+        }
+        
+        ArrayList<String> al1=new ArrayList<String>();
+        List<List<String>> ll=new ArrayList<List<String>>();
+        for(int i=0;i<hm2.size();i++)
+        {
+            String n="F"+(i+1);
+            while(hm2.containsKey(n))
+            {
+                n=hm2.get(n);
+                al1.add(n);
+            }
+        }
+        ll.add(al1);
+        
+        
+        for(int i=0;i<ll.size();i++)
+        {
+            ArrayList<String> al2=new ArrayList<String>(ll.get(i));
+            for(int j=al2.size()-1;j>=0;j--)
+            {
+                String s=al2.get(j);
+                if(hm1.containsKey(s))
+                {
+                    int d1=Integer.parseInt(hm1.get(s).daily);
+                    int c1=Integer.parseInt(hm1.get(s).capacity);
+                    int divide=noOfDays-(d1/c1);
+                    if(divide>0)
+                    {
+                        for(int j=al2.size()-1;j>=0;j--)
+                        {
+                            s=al2.get(j);
+                             =hm1.get(s).initial+divide;
+                        }
+                    }
+                    System.out.println(hm1.get(s).daily+" "+hm1.get(s).capacity);
+                }
+            }
+        }
+        
+    }
+}
