@@ -52,7 +52,7 @@ public class BfsTraversal
             while(itr.hasNext())
             {
                 int n=itr.next();
-                while(!visited[n])
+                if(!visited[n])
                 {
                     visited[n]=true;
                     queue.add(n);
